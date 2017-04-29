@@ -35,7 +35,9 @@
 				echo esc_html( implode( ', ', $authors ));
 			?></td></tr>
 			<tr><td>価格</td><td><?php echo esc_html( get_post_meta( $post->ID, '価格', true ) ); ?>円</td></tr>
-			<tr><td>読んだ日</td><td><?php echo esc_html( get_post_meta( $post->ID, '読んだ日', true ) ); ?></td></tr>
+			<?php if ( get_post_meta($post->ID, '読んだ日', true) ) : ?>
+				<tr><td>読んだ日</td><td><?php echo esc_html( get_post_meta( $post->ID, '読んだ日', true ) ); ?></td></tr>
+			<?php endif; ?>
 		</table>
 	<?php
 	endif;
