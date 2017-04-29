@@ -43,18 +43,27 @@
 	// ここはget_postsの節で取り上げます
 	if (is_single()) {
 		$postid = get_the_ID();
-		$authorid = get_the_author_meta( 'ID' );
+		// $authorid = get_the_author_meta( 'ID' );
+		$cat = get_the_category();
+
+		$catarray = array();
+		foreach ($cat as $data) {
+			$catarray[] = $data->cat_ID;
+		}
 
 		$args = array(
 			'posts_per_page' => 5,
-			'author'         => $authorid,
+			// 'author'         => $authorid,
+			'category__in' => $catarray,
 			'orderby'        => 'rand',
 			'exclude'        => $postid,
 		);
 
 		$myposts = get_posts( $args );
+		// var_dump($myposts);
+		// exit;
 
-		echo '<h3>同じ人が書いた記事</h3>';
+		echo '<h3>同じカテゴリーの記事</h3>';
 		if ($myposts) :
 			echo '<ul>';
 			foreach ($myposts as $post) :
